@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('size');
             $table->string('type');
-            $table->string('expiration_date');
+            $table->date('expiration_date');
             $table->string('location');
             $table->string('place');
             $table->integer('floor');

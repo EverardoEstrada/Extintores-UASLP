@@ -3,49 +3,47 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Models\Fire_ExtModel;
+use Illuminate\Support\Str;
 use Illuminate\Routing\Controller;
+
+use App\Models\FireExt;
+
 
 class FireExtController extends Controller
 {
-    public function show()
+    private $name = 'floorplan';
+
+    public function index(int $section)
     {
-        $exts = Fire_ExtModel::all();
-        return view('welcome')->with('exts', $exts);
+        $exts = FireExt::all();
+        return view('welcome', compact(
+            'exts',
+            'section'
+        ));
     }
 
-    public function save(Request $req)
+    public function store(Request $request)
     {
-        $ext = new Fire_ExtModel();
-        $ext->size = $req->input('size');
-        $ext->type = $req->input('type');
-        $ext->expiration_date = $req->input('expiration_date');
-        $ext->location = $req->input('location');
-        $ext->place = $req->input('place');
-        $ext->floor = $req->input('floor');
-        $ext->observation = $req->input('observation');
+        $url = url()->previous();
+        $ext = new FireExt($request->all());
         $ext->save();
-        return redirect('/');
+        return Str::contains($url, $this->name) ? redirect()->back() : redirect()->route('landscape', ['section' => 1]);
     }
 
-    public function update(Request $req) {
-        $ext = Fire_ExtModel::find($req->input('id'));
-        $ext->size = $req->input('size');
-        $ext->type = $req->input('type');
-        $ext->expiration_date = $req->input('expiration_date');
-        $ext->location = $req->input('location');
-        $ext->place = $req->input('place');
-        $ext->floor = $req->input('floor');
-        $ext->observation = $req->input('observation');
-        $ext->save();
-        return redirect('/');
-    }
-
-    public function delete($id)
+    public function update(Request $request)
     {
-        $ext = Fire_ExtModel::find($id);
+        $id = $request->input('ext_id');
+        $ext = FireExt::findOrFail($id);
+        $ext->fill($request->all());
+        $ext->save();
+        return redirect()->back();
+    }
+
+    public function destroy(Request $request)
+    {
+        $id = $request->input('ext_id');
+        $ext = FireExt::find($id);
         $ext->delete();
-        return redirect('/');
+        return redirect()->back();
     }
 }

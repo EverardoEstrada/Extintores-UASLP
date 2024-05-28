@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('fire_extinguishers', function (Blueprint $table) {
             $table->id();
-            $table->integer('size');
+            $table->float('size', 8, 2);
             $table->string('type');
             $table->date('expiration_date');
-            $table->string('location');
+            $table->string('location')->nullable();
             $table->string('place');
             $table->integer('floor');
-            $table->string('observation');
+            $table->string('observations')->nullable();
             $table->timestamps();
         });
     }

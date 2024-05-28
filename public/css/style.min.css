@@ -1,6 +1,6 @@
 :root {
-    --color-primary: #FFFEFE;
-    --color-secondary: #004B99;
+    --color-primary: #ffffff;
+    --color-secondary: #003165;
     --color-tertiary: #04B2D9;
 }
 
@@ -8,38 +8,4 @@ header {
     width: 100%;
     padding: 10px 15px;
     background-color: var(--color-secondary);
-}
-
-h1 {
-    width: 100%;
-    text-align: right;
-    color: var(--color-primary);
-}
-
-.container {
-    min-width: 100%;
-    min-height: 100vh;
-}
-
-.row {
-    min-width: 100%;
-}
-
-.col {
-    min-height: 90vh;
-}
-
-.function-section {
-    background-color: var(--color-primary);
-    padding-top: 15px;
-    box-shadow: 0 5px 10px 0 rgb(182, 182, 182);
-}
-
-.btn-primary {
-    background-color: var(--color-secondary);
-    border: none;
-}
-
-.modal-content {
-    width: 108%;
 }
